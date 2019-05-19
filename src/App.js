@@ -21,7 +21,7 @@ function App() {
   const [channels, setChannels] = useState([]);
 
   useEffect(() => {
-    db.collection("channels").onSnapshot(snapshot => {
+    return db.collection("channels").onSnapshot(snapshot => {
       const docs = [];
       snapshot.forEach(doc => {
         docs.push({
