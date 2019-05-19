@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { db } from './firebase';
+import React, { useState, useEffect } from "react";
+import { db } from "./firebase";
 
 function Nav() {
   const [channels, setChannels] = useState([]);
 
   useEffect(() => {
-    return db.collection('channels').onSnapshot(snapshot => {
+    return db.collection("channels").onSnapshot(snapshot => {
       const docs = [];
       snapshot.forEach(doc => {
         docs.push({
@@ -34,7 +34,9 @@ function Nav() {
       </div>
       <nav className="ChannelNav">
         {channels.map(channel => (
-          <a href={`/channel/${channel.id}`}># {channel.id}</a>
+          <a key={channel.id} href={`/channel/${channel.id}`}>
+            # {channel.id}
+          </a>
         ))}
       </nav>
     </div>
