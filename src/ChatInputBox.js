@@ -15,6 +15,7 @@ function ChatInputBox() {
             text: value,
             createdAt: new Date()
           });
+        e.target.reset();
       }}
       className="ChatInputBox"
     >
