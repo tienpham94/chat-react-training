@@ -2,7 +2,7 @@ import React from "react";
 
 import { db } from "./firebase";
 
-function ChatInputBox() {
+function ChatInputBox({ user }) {
   return (
     <form
       onSubmit={e => {
@@ -12,6 +12,7 @@ function ChatInputBox() {
           .doc("general")
           .collection("messages")
           .add({
+            user: db.collection("users").doc(user.uid),
             text: value,
             createdAt: new Date()
           });

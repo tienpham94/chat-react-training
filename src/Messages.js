@@ -3,7 +3,7 @@ import React from "react";
 import useCollection from "./useCollection";
 
 function Messages() {
-  const messages = useCollection("channels/general/messages", "createdAt");
+  const messages = useCollection("channels/random/messages", "createdAt");
   return (
     <div className="Messages">
       <div className="EndOfMessages">That's every message!</div>
