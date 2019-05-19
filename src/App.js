@@ -23,7 +23,16 @@ function App() {
   ]);
 
   useEffect(() => {
-    db.collection("channels").onSnapshot(snapshot => console.log(snapshot));
+    db.collection("channels").onSnapshot(snapshot => {
+      const docs = [];
+      snapshot.forEach(doc => {
+        docs.push({
+          ...doc.data(),
+          id: doc.id
+        });
+      });
+      console.log(docs)
+    });
   }, []);
 
   return (
