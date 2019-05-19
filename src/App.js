@@ -11,7 +11,7 @@ function App() {
             src="https://placekitten.com/64/64"
           />
           <div>
-            <div>Ryan Peterson Florence</div>
+            <div>Tien Pham</div>
             <div>
               <button className="text-button">log out</button>
             </div>
