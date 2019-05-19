@@ -4,6 +4,27 @@ import Channel from "./Channel";
 import { firebase } from "./firebase";
 
 function App() {
+  const user = useAuth();
+
+  const handleSignIn = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    await firebase.auth().signInWithPopup(provider);
+  };
+
+  return user ? (
+    <div className="App">
+      <Nav user={user} />
+      <Channel />
+    </div>
+  ) : (
+    <div className="Login">
+      <h1>Chat!</h1>
+      <button onClick={handleSignIn}>Sign in with Google</button>
+    </div>
+  );
+}
+
+function useAuth() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -20,23 +41,7 @@ function App() {
     });
   }, []);
 
-  const handleSignIn = async () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    const result = await firebase.auth().signInWithPopup(provider);
-    setUser(result.user);
-  };
-
-  return user ? (
-    <div className="App">
-      <Nav user={user} />
-      <Channel />
-    </div>
-  ) : (
-    <div className="Login">
-      <h1>Chat!</h1>
-      <button onClick={handleSignIn}>Sign in with Google</button>
-    </div>
-  );
+  return user;
 }
 
 export default App;
