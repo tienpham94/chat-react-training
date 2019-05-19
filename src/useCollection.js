@@ -5,19 +5,22 @@ function useCollection(path, orderBy) {
   const [docs, setDocs] = useState([]);
 
   useEffect(() => {
-    return db
-      .collection(path)
-      .orderBy(orderBy)
-      .onSnapshot(snapshot => {
-        const docs = [];
-        snapshot.forEach(doc => {
-          docs.push({
-            ...doc.data(),
-            id: doc.id
-          });
+    let collection = db.collection(path);
+
+    if (orderBy) {
+      collection = collection.orderBy(orderBy);
+    }
+
+    return collection.onSnapshot(snapshot => {
+      const docs = [];
+      snapshot.forEach(doc => {
+        docs.push({
+          ...doc.data(),
+          id: doc.id
         });
-        setDocs(docs);
       });
+      setDocs(docs);
+    });
   }, []);
 
   return docs;
