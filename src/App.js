@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase";
+import "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDy-UgSp4weo2sTzJxTiIuWeYOklCzWMcI",
@@ -14,10 +15,17 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+const db = firebase.firestore();
+
 function App() {
   const [channels, setChannels] = useState([
     { topic: "Something", id: "general" }
   ]);
+
+  useEffect(() => {
+    db.collection("channels").onSnapshot(snapshot => console.log(snapshot));
+  }, []);
+
   return (
     <div className="App">
       <div className="Nav">
@@ -36,7 +44,9 @@ function App() {
         </div>
         <nav className="ChannelNav">
           {channels.map(channel => (
-            <a href={`/channel/${channel.id}`}># {channel.id}</a>
+            <a key={channel.id} href={`/channel/${channel.id}`}>
+              # {channel.id}
+            </a>
           ))}
 
           {/* <a className="active" href="/channel/general">
