@@ -5,7 +5,7 @@ function Messages() {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    db.collection("channel")
+    db.collection("channels")
       .doc("general")
       .collection("messages")
       .onSnapshot(snapshot => {
@@ -38,14 +38,14 @@ function Messages() {
                   <span className="UserName">Ryan Florence </span>
                   <span className="TimeStamp">3:37 PM</span>
                 </div>
-                <div className="MessageContent">Alright, lets do this.</div>
+                <div className="MessageContent">{message.text}</div>
               </div>
             </div>
           </div>
         ) : (
           <div>
             <div className="Message no-avatar">
-              <div className="MessageContent">works now?</div>
+              <div className="MessageContent">{message.text}</div>
             </div>
           </div>
         )
