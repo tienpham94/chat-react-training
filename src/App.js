@@ -17,15 +17,29 @@ function App() {
 }
 
 function Login() {
+  const [authError, setAuthError] = useState(null);
+
   const handleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    await firebase.auth().signInWithPopup(provider);
+    try {
+      await firebase.auth().signInWithPopup(provider);
+    } catch (error) {
+      setAuthError(error);
+    }
   };
 
   return (
     <div className="Login">
       <h1>Chat!</h1>
       <button onClick={handleSignIn}>Sign in with Google</button>
+      {authError && (
+        <div>
+          <p>Sorry, there is some problem</p>
+          <p>
+            <i>{authError}</i>
+          </p>
+        </div>
+      )}
     </div>
   );
 }
